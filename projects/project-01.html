@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>ARFID — Quirien Schendstok</title>
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+  <a href="../index.html" class="logo">Quirien Schendstok</a>
+  <nav>
+    <a href="../index.html">Selected work</a>
+    <a href="../about.html">About</a>
+    <a href="../contact.html">Contact</a>
+  </nav>
+</header>
+
+<main class="project-page">
+
+  <div class="project-intro">
+    <div class="project-meta">
+      <a href="../index.html" class="back-link">← Selected work</a>
+      <h1 class="project-title">ARFID</h1>
+      <span class="project-year">2026</span>
+    </div>
+    <p class="project-description">
+      This cookbook brings together personal recipes and real stories from adults living with ARFID (Avoidant/Restrictive Food Intake Disorder). It highlights how eating often effortless for many can feel overwhelming and frightening for others. The project aims to break the silence, raise awareness, and gently guide a return to comfort with food, step by step.
+      <br><br>
+      At the same time, it offers a visual and emotional exploration of vulnerability and the human body. By presenting food outside traditional settings, it challenges norms and invites openness, understanding, and a redefinition of what comfort can look like.
+    </p>
+  </div>
+
+  <div class="project-images">
+    <div class="image-large">
+      <img src="../images/PersonalProject.jpg" alt="ARFID 1">
+    </div>
+    <div class="image-grid-two">
+      <img src="../images/PersonalProject.6.jpg" alt="ARFID 2">
+      <img src="../images/PersonalProject.5.jpg" alt="ARFID 3">
+    </div>
+    <div class="image-grid-two">
+      <img src="../images/PersonalProject.2.jpg" alt="ARFID 4">
+      <img src="../images/PersonalProject.4.jpg" alt="ARFID 5">
+    </div>
+  </div>
+
+</main>
+
+<!-- Lightbox overlay -->
+<div class="lightbox-overlay" id="lightbox">
+  <span class="close-btn" id="lightbox-close">&times;</span>
+  <span class="prev-btn" id="lightbox-prev">&#8592;</span>
+  <img src="" alt="" id="lightbox-img">
+  <span class="next-btn" id="lightbox-next">&#8594;</span>
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.getElementById('lightbox-close');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+
+  const images = Array.from(document.querySelectorAll('.project-images img'));
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    lightboxImg.src = images[currentIndex].src;
+    lightboxImg.alt = images[currentIndex].alt;
+    lightbox.classList.add('active');
+  }
+
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+    lightboxImg.alt = images[currentIndex].alt;
+  }
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+    lightboxImg.alt = images[currentIndex].alt;
+  }
+
+  images.forEach((img, index) => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => openLightbox(index));
+  });
+
+  prevBtn.addEventListener('click', showPrev);
+  nextBtn.addEventListener('click', showNext);
+  closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.classList.remove('active');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'ArrowRight') showNext();
+  });
+</script>
+
+</body>
+</html>
